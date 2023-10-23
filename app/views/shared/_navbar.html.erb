@@ -1,0 +1,17 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <%= link_to "Campaigns", campaigns_path, class: "nav-link #{navbar_active('campaigns')}" %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Contacts", contacts_path, class: "nav-link #{navbar_active('contacts')}" %>
+        </li>
+         <li class="nav-item">
+          <%= link_to "Transactions", transactions_path, class: "nav-link #{navbar_active('transactions')}" %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

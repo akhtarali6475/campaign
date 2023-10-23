@@ -1,0 +1,19 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  timeout: 5000
+
+development:
+  <<: *default
+  host: localhost
+  pool: 5
+  port: 5432
+  database: campaign_development
+
+test:
+  <<: *default
+  database: campaign_test
+
+production:
+  <<: *default
+  database: campaign_production

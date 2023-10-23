@@ -1,0 +1,9 @@
+<tr>
+  <th scope="row"><%= contact.id %></th>
+  <td><%= contact.first_name %></td>
+  <td><%= contact.last_name %></td>
+  <td><%= contact.email %></td>
+  <td><%= contact.mobile %></td>
+  <td><%= link_to 'Edit', contacts_path(id: contact.id) %></td>
+  <td><%= link_to 'Delete', contact_path(id: contact.id, method: :delete) %></td>
+</tr>

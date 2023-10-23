@@ -1,0 +1,23 @@
+<div class="container">
+	<%= render 'form' %>
+	<div class="data">
+		<h2> Records </h2>
+		<table class="table">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">First Name</th>
+		      <th scope="col">Last Name</th>
+		      <th scope="col">Email</th>
+		      <th scope="col">phone</th>
+		      <th scope="col">Edit</th>
+		      <th scope="col">Delete</th>
+		    </tr>
+		  </thead>
+  		<tbody>
+				<%= render partial: 'contact', collection: @contacts %>
+			</tbody>
+		</table>
+	</div>
+	<%= will_paginate @contacts %>
+</div>

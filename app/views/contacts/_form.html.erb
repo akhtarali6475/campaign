@@ -1,0 +1,38 @@
+<div class="form-container">
+
+	<%= semantic_form_for @contact, html: { autocomplete: 'off', class: 'form-horizontal '} do |f| %>
+
+	 	<%= f.input :first_name, label: true, input_html: { class: 'form-control' } %>
+	 	<%= f.input :last_name, label: true, input_html: { class: 'form-control' } %>
+	 	<%= f.input :email, label: true, input_html: { class: 'form-control' } %>
+	 	<%= f.input :mobile, label: true, input_html: { class: 'form-control' } %>
+
+	 	<%= f.inputs 'Campaigns' do %>
+	 		<%= f.input :campaign_ids, label: "Select Campaigns", collection: [], as: :select, input_html: { class: "custom-select-campaign",  data: { url: campaigns_url } }, multiple: true %>
+
+	 		<%= f.inputs 'Or Create New Campaign' do %>
+	 			<%= f.semantic_fields_for :campaigns, @contact.campaigns.presence || @contact.campaigns.new do |campaign| %>
+	 				<%= render 'shared/campaign_fields', f: campaign %>
+	 			<% end %>
+	 			<div class="add_more_field">
+        	<%= link_to_add_association('+ Add More', f, :campaigns, class: 'btn primary', partial: 'shared/campaign_fields') %>
+	 			</div>
+	 		<% end %>
+	 	<% end %>
+
+	 	<%= f.inputs 'Transactions' do %>
+	 		<%= f.input :contact_transaction_ids, label: "Select Transactions", collection: [], as: :select, input_html: { class: "custom-select-transaction" }, multiple: true %>
+
+	 		<%= f.inputs 'Or Create New Transaction' do %>
+	 			<%= f.semantic_fields_for :contact_transactions, @contact.contact_transactions.presence || @contact.contact_transactions.new do |transaction| %>
+	 				<%= render 'shared/transaction_fields', f: transaction %>
+	 			<% end %>
+	 			<div class="add_more_field">
+        	<%= link_to_add_association('+ Add More', f, :contact_transactions, class: 'btn primary', partial: 'shared/transaction_fields') %>
+	 			</div>
+	 		<% end %>
+	 	<% end %>
+
+	 	<%= f.submit "#{@contact.persisted? ? 'Update' : 'Create'}", class: 'btn btn-primary' %>
+	<% end %>
+</div>
