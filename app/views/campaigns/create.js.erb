@@ -1,0 +1,7 @@
+<% if @campaign.errors.present? %>
+	$('#campaign-form').html("<%= escape_javascript render(partial: 'campaigns/form', locals: { campaign: @campaign }) %>");
+<% else %>
+	$('#campaign-table').prepend("<%= escape_javascript render(partial: 'campaigns/campaign', locals: { campaign: @campaign }) %>");
+<% end %>
+contactAutocomplete();
+transactionAutocomplete();

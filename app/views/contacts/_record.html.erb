@@ -1,0 +1,9 @@
+<th scope="row"><%= contact.id %></th>
+<td><%= contact.first_name %></td>
+<td><%= contact.last_name %></td>
+<td><%= contact.email %></td>
+<td><%= contact.mobile %></td>
+<td><%= contact.campaigns.pluck(:name).join(", ") %></td>
+<td><%= contact.contact_transactions.pluck(:price).join(", ") %></td>
+<td><%= link_to 'Edit', contacts_path(id: contact.id) %></td>
+<td><%= link_to 'Delete', contact_path(id: contact.id), method: :delete, remote: true %></td>

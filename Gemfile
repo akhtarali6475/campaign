@@ -38,10 +38,10 @@ gem 'jbuilder', '~> 2.5'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'bootstrap'
-gem 'jquery-rails'
-gem "select2-rails"
+gem 'cocoon'
 gem 'formtastic'
-gem "cocoon"
+gem 'jquery-rails'
+gem 'select2-rails'
 gem 'will_paginate', '~> 4.0'
 
 group :development, :test do

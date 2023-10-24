@@ -1,8 +1,10 @@
 <div class="container">
-	<%= render 'form' %>
+	<div id="contact-form">
+		<%= render 'form', contact: @contact %>
+	</div>
 	<div class="data">
 		<h2> Records </h2>
-		<table class="table">
+		<table class="table" id="contact-table">
 		  <thead>
 		    <tr>
 		      <th scope="col">#</th>
@@ -10,6 +12,8 @@
 		      <th scope="col">Last Name</th>
 		      <th scope="col">Email</th>
 		      <th scope="col">phone</th>
+		      <th scope="col">Campaigns</th>
+		      <th scope="col">Transactions</th>
 		      <th scope="col">Edit</th>
 		      <th scope="col">Delete</th>
 		    </tr>

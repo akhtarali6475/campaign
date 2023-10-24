@@ -1,0 +1,26 @@
+<div class="container">
+	<div id="campaign-form">
+		<%= render 'form', campaign: @campaign %>
+	</div>
+	<div class="data">
+		<h2> Records </h2>
+		<table class="table" id="campaign-table">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Name</th>
+		      <th scope="col">Budget</th>
+		      <th scope="col">description</th>
+		      <th scope="col">Contacts</th>
+		      <th scope="col">Transactions</th>
+		      <th scope="col">Edit</th>
+		      <th scope="col">Delete</th>
+		    </tr>
+		  </thead>
+  		<tbody>
+  			<%= render partial: 'campaign', collection: @campaigns %>
+			</tbody>
+		</table>
+	</div>
+	<%= will_paginate @campaigns %>
+</div>

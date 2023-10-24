@@ -1,0 +1,7 @@
+<th scope="row"><%= transaction.id %></th>
+<td><%= transaction.price %></td>
+<td><%= transaction.description %></td>
+<td><%= transaction.contacts.pluck(:email).join(", ") %></td>
+<td><%= transaction.campaigns.pluck(:name).join(", ") %></td>
+<td><%= link_to 'Edit', transactions_path(id: transaction.id) %></td>
+<td><%= link_to 'Delete', transaction_path(id: transaction.id), method: :delete, remote: true %></td>

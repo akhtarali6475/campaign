@@ -1,0 +1,25 @@
+<div class="container">
+	<div id="transaction-form">
+		<%= render 'form', transaction: @transaction %>
+	</div>
+	<div class="data">
+		<h2> Records </h2>
+		<table class="table" id="transaction-table">
+		  <thead>
+		    <tr>
+		      <th scope="col">#</th>
+		      <th scope="col">Price</th>
+		      <th scope="col">Description</th>
+		      <th scope="col">Contacts</th>
+		      <th scope="col">Campaign</th>
+		      <th scope="col">Edit</th>
+		      <th scope="col">Delete</th>
+		    </tr>
+		  </thead>
+  		<tbody>
+				<%= render partial: 'transaction', collection: @transactions %>
+			</tbody>
+		</table>
+	</div>
+	<%= will_paginate @transactions %>
+</div>

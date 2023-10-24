@@ -1,7 +1,6 @@
 // For autocomplete data
 
-$(document).on('ready page turbolinks:load', function() {
-
+function campaignAutocomplete(){
   $('.custom-select-campaign').select2({
     minimumInputLength: 3,
     ajax: {
@@ -16,8 +15,9 @@ $(document).on('ready page turbolinks:load', function() {
       }
     }
   });
+}
 
-
+function contactAutocomplete(){
   $('.custom-select-contact').select2({
     minimumInputLength: 3,
     ajax: {
@@ -32,8 +32,9 @@ $(document).on('ready page turbolinks:load', function() {
       }
     }
   });
+}
 
-
+function transactionAutocomplete(){
   $('.custom-select-transaction').select2({
     minimumInputLength: 3,
     ajax: {
@@ -48,4 +49,10 @@ $(document).on('ready page turbolinks:load', function() {
       }
     }
   });
+}
+
+$(document).on('ready page turbolinks:load', function() {
+  campaignAutocomplete();
+  contactAutocomplete();
+  transactionAutocomplete();
 });

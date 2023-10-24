@@ -1,0 +1,7 @@
+<% if @contact.errors.present? %>
+	$('#contact-form').html("<%= escape_javascript render(partial: 'contacts/form', locals: { contact: @contact }) %>");
+<% else %>
+	$('#contact-table').prepend("<%= escape_javascript render(partial: 'contacts/contact', locals: { contact: @contact }) %>");
+<% end %>
+campaignAutocomplete();
+transactionAutocomplete();

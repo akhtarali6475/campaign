@@ -1,0 +1,43 @@
+<div class="form-container">
+
+	<%= semantic_form_for transaction, html: { autocomplete: 'off', class: 'form-horizontal '}, remote: true do |f| %>
+
+	 	<%= f.input :price, label: true, input_html: { class: 'form-control' } %>
+	 	<%= f.input :description, label: true, input_html: { class: 'form-control', rows: '2' } %>
+
+	 	<!-- Starting adding multiple contacts -->
+	 	<%= f.inputs 'Contacts' do %>
+	 		<!-- Autocomplete select contacts -->
+	 		<%= f.input :contact_ids, label: "Select Contacts", collection: [], as: :select, input_html: { class: "custom-select-contact",  data: { url: campaigns_url } }, multiple: true %>
+
+	 		<%= f.inputs 'Or Create Contacts' do %>
+	 			<%= f.semantic_fields_for :contacts, transaction.contacts.presence || transaction.contacts.new do |contact| %>
+	 				<%= render 'shared/contact_fields', f: contact %>
+	 			<% end %>
+	 			<div class="add_more_field">
+        	<%= link_to_add_association('+ Add More', f, :contacts, class: 'btn primary', partial: 'shared/contact_fields') %>
+	 			</div>
+	 		<% end %>
+	 	<% end %>
+	 	<!-- End adding multiple contacts -->
+
+	 	<!-- Starting adding multiple campaigns -->
+	 	<%= f.inputs 'Campaigns' do %>
+	 		<!-- Autocomplete select campaigns -->
+	 		<%= f.input :campaign_ids, label: "Select Campaigns", collection: [], as: :select, input_html: { class: "custom-select-campaign",  data: { url: campaigns_url } }, multiple: true %>
+
+	 		<%= f.inputs 'Or Create New Campaign' do %>
+	 			<%= f.semantic_fields_for :campaigns, transaction.campaigns.presence || transaction.campaigns.new do |campaign| %>
+	 				<%= render 'shared/campaign_fields', f: campaign %>
+	 			<% end %>
+	 			<div class="add_more_field">
+        	<%= link_to_add_association('+ Add More', f, :campaigns, class: 'btn primary', partial: 'shared/campaign_fields') %>
+	 			</div>
+	 		<% end %>
+	 	<% end %>
+	 	<!-- End adding multiple campaigns -->
+
+
+	 	<%= f.submit "#{transaction.persisted? ? 'Update' : 'Create'}", class: 'btn btn-primary' %>
+	<% end %>
+</div>

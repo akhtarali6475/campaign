@@ -1,17 +1,17 @@
 <div class="form-container">
 
-	<%= semantic_form_for @contact, html: { autocomplete: 'off', class: 'form-horizontal '} do |f| %>
+	<%= semantic_form_for contact, html: { autocomplete: 'off', class: 'form-horizontal '}, remote: true do |f| %>
 
 	 	<%= f.input :first_name, label: true, input_html: { class: 'form-control' } %>
 	 	<%= f.input :last_name, label: true, input_html: { class: 'form-control' } %>
 	 	<%= f.input :email, label: true, input_html: { class: 'form-control' } %>
 	 	<%= f.input :mobile, label: true, input_html: { class: 'form-control' } %>
 
+	 	<!-- Starting adding multiple campaigns -->
 	 	<%= f.inputs 'Campaigns' do %>
 	 		<%= f.input :campaign_ids, label: "Select Campaigns", collection: [], as: :select, input_html: { class: "custom-select-campaign",  data: { url: campaigns_url } }, multiple: true %>
-
 	 		<%= f.inputs 'Or Create New Campaign' do %>
-	 			<%= f.semantic_fields_for :campaigns, @contact.campaigns.presence || @contact.campaigns.new do |campaign| %>
+	 			<%= f.semantic_fields_for :campaigns, contact.campaigns.presence || contact.campaigns.new do |campaign| %>
 	 				<%= render 'shared/campaign_fields', f: campaign %>
 	 			<% end %>
 	 			<div class="add_more_field">
@@ -19,12 +19,14 @@
 	 			</div>
 	 		<% end %>
 	 	<% end %>
+	 	<!-- End adding multiple campaigns -->
 
+	 	<!-- Starting adding multiple transactions -->
 	 	<%= f.inputs 'Transactions' do %>
 	 		<%= f.input :contact_transaction_ids, label: "Select Transactions", collection: [], as: :select, input_html: { class: "custom-select-transaction" }, multiple: true %>
 
 	 		<%= f.inputs 'Or Create New Transaction' do %>
-	 			<%= f.semantic_fields_for :contact_transactions, @contact.contact_transactions.presence || @contact.contact_transactions.new do |transaction| %>
+	 			<%= f.semantic_fields_for :contact_transactions, contact.contact_transactions.presence || contact.contact_transactions.new do |transaction| %>
 	 				<%= render 'shared/transaction_fields', f: transaction %>
 	 			<% end %>
 	 			<div class="add_more_field">
@@ -32,7 +34,8 @@
 	 			</div>
 	 		<% end %>
 	 	<% end %>
+	 	<!-- End adding multiple transactions -->
 
-	 	<%= f.submit "#{@contact.persisted? ? 'Update' : 'Create'}", class: 'btn btn-primary' %>
+	 	<%= f.submit "#{contact.persisted? ? 'Update' : 'Create'}", class: 'btn btn-primary' %>
 	<% end %>
 </div>

@@ -1,50 +1,41 @@
 # frozen_string_literal: true
 
 class ContactsController < ApplicationController
-	before_action :fetch_contact
+  before_action :fetch_contact, except: [:create]
 
-	def index
-		@contact  ||= Contact.new
-		@contacts = Contact.paginate(page: params[:page], per_page: 10)
-	end
+  def index
+    @contact ||= Contact.new
+    @contacts = Contact.includes(:campaigns, :contact_transactions)
+                       .order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+  end
 
-	def create
-		@contact = Contact.new(contact_params)
+  def create
+    @contact = Contact.new(contact_params)
+    @contact.save
+  end
 
-		if @contact.save
-			redirect_to contacts_path
-		else
-			render 'index'
-		end
-	end
+  def update
+    @contact.update(contact_params)
+  end
 
-	def update
-		if @contact.update_attributes(contact_params)
-			redirect_to contacts_path
-		else
-			render 'index'
-		end
-	end
+  def destroy
+    @success = if @contact.destroy
+                 true
+               else
+                 false
+               end
+  end
 
-	def destroy
-		msg = if @contact.destroy
-			"Record Deleted Successfully."
-		else
-			"Unable to delete Record."
-		end
-		redirect_to contacts_path
-	end
+  private
 
-	private
+  def fetch_contact
+    @contact = Contact.find_by(id: params[:id])
+  end
 
-	def fetch_contact
-		@contact = Contact.find_by(params[:id])
-	end
-
-	def contact_params
+  def contact_params
     params.require(:contact).permit(:id, :first_name, :last_name, :email, :mobile,
-    	                               campaign_ids: [], transaction_ids: [],
-    	                               campaigns_attributes: [:id, :name, :budget, :description, :_destroy],
-    	                               contact_transactions_attributes: [:id, :price, :description, :_destroy])
+                                    campaign_ids: [], contact_transaction_ids: [],
+                                    campaigns_attributes: %i[id name budget description _destroy],
+                                    contact_transactions_attributes: %i[id price description _destroy])
   end
 end

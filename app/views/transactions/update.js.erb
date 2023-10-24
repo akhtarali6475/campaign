@@ -1,0 +1,7 @@
+<% if @transaction.errors.present? %>
+	$('#transaction-form').html("<%= escape_javascript render(partial: 'transactions/form', locals: { transaction: @transaction }) %>");
+<% else %>
+	$('#transaction-data-<%= @transaction.id %>').html("<%= escape_javascript render(partial: 'transactions/record', locals: { transaction: @transaction }) %>");
+<% end %>
+campaignAutocomplete();
+contactAutocomplete();
