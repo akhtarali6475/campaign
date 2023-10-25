@@ -5,8 +5,12 @@ class ContactsController < ApplicationController
 
   def index
     @contact ||= Contact.new
-    @contacts = Contact.includes(:campaigns, :contact_transactions)
-                       .order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    @contacts = Contact.filter_records(params)
+
+    respond_to do |format|
+      format.html
+      format.js { render json: @contacts }
+    end
   end
 
   def create

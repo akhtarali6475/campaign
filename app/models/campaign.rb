@@ -8,4 +8,14 @@ class Campaign < ApplicationRecord
 
   accepts_nested_attributes_for :campaign_transactions, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :contacts, reject_if: :all_blank, allow_destroy: true
+
+  # Filter Reocrds
+  def self.filter_records(args)
+    if args[:_type] == 'query'
+      Campaign.where('lower(name) LIKE ?', "%#{args[:term].downcase}%")
+    else
+      Campaign.includes(:contacts, :campaign_transactions)
+              .order(created_at: :desc).paginate(page: args[:page], per_page: 10)
+    end
+  end
 end

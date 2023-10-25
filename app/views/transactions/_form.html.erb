@@ -8,7 +8,7 @@
 	 	<!-- Starting adding multiple contacts -->
 	 	<%= f.inputs 'Contacts' do %>
 	 		<!-- Autocomplete select contacts -->
-	 		<%= f.input :contact_ids, label: "Select Contacts", collection: [], as: :select, input_html: { class: "custom-select-contact",  data: { url: campaigns_url } }, multiple: true %>
+	 		<%= f.input :contact_ids, label: "Select Contacts", collection: transaction.contacts.pluck(:email, :id), as: :select, input_html: { class: "custom-select-contact",  data: { url: contacts_url } }, multiple: true %>
 
 	 		<%= f.inputs 'Or Create Contacts' do %>
 	 			<%= f.semantic_fields_for :contacts, transaction.contacts.presence || transaction.contacts.new do |contact| %>
@@ -24,7 +24,7 @@
 	 	<!-- Starting adding multiple campaigns -->
 	 	<%= f.inputs 'Campaigns' do %>
 	 		<!-- Autocomplete select campaigns -->
-	 		<%= f.input :campaign_ids, label: "Select Campaigns", collection: [], as: :select, input_html: { class: "custom-select-campaign",  data: { url: campaigns_url } }, multiple: true %>
+	 		<%= f.input :campaign_ids, label: "Select Campaigns", collection: transaction.campaigns, as: :select, input_html: { class: "custom-select-campaign",  data: { url: transactions_url } }, multiple: true %>
 
 	 		<%= f.inputs 'Or Create New Campaign' do %>
 	 			<%= f.semantic_fields_for :campaigns, transaction.campaigns.presence || transaction.campaigns.new do |campaign| %>

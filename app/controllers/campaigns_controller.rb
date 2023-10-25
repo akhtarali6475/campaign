@@ -5,8 +5,11 @@ class CampaignsController < ApplicationController
 
   def index
     @campaign ||= Campaign.new
-    @campaigns = Campaign.includes(:contacts, :campaign_transactions)
-                         .order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    @campaigns = Campaign.filter_records(params)
+    respond_to do |format|
+      format.html
+      format.js { render json: @campaigns }
+    end
   end
 
   def create

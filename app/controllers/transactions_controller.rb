@@ -5,8 +5,11 @@ class TransactionsController < ApplicationController
 
   def index
     @transaction ||= Transaction.new
-    @transactions = Transaction.includes(:contacts, :campaigns).order(created_at: :desc)
-                               .paginate(page: params[:page], per_page: 10)
+    @transactions = Transaction.filter_records(params)
+    respond_to do |format|
+      format.html
+      format.js { render json: @transactions }
+    end
   end
 
   def create
@@ -20,8 +23,10 @@ class TransactionsController < ApplicationController
 
   def destroy
     @success = if @transaction.destroy
+                 true
+               else
+                 false
                end
-    true
   end
 
   private

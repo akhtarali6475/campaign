@@ -7,7 +7,7 @@
 	 	<%= f.input :description, label: true, input_html: { class: 'form-control', rows: '2' } %>
 
 	 	<%= f.inputs 'Contacts' do %>
-	 		<%= f.input :contact_ids, label: "Select Contacts", collection: [], as: :select, input_html: { class: "custom-select-contact",  data: { url: campaigns_url } }, multiple: true %>
+	 		<%= f.input :contact_ids, label: "Select Contacts", collection: campaign.contacts.pluck(:email, :id), as: :select, input_html: { class: "custom-select-contact",  data: { url: campaigns_url } }, multiple: true %>
 
 	 		<%= f.inputs 'Or Create Contacts' do %>
 	 			<%= f.semantic_fields_for :contacts, campaign.contacts.presence || campaign.contacts.new do |contact| %>
@@ -20,7 +20,7 @@
 	 	<% end %>
 
 	 	<%= f.inputs 'Transactions' do %>
-	 		<%= f.input :campaign_transaction_ids, label: "Select Transactions", collection: [], as: :select, input_html: { class: "custom-select-transaction" }, multiple: true %>
+	 		<%= f.input :campaign_transaction_ids, label: "Select Transactions", collection: campaign.campaign_transactions.pluck(:description, :id), as: :select, input_html: { class: "custom-select-transaction" }, multiple: true %>
 
 	 		<%= f.inputs 'Or Create New Transaction' do %>
 	 			<%= f.semantic_fields_for :campaign_transactions, campaign.campaign_transactions.presence || campaign.campaign_transactions.new do |transaction| %>

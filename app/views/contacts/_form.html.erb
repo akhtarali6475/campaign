@@ -9,7 +9,7 @@
 
 	 	<!-- Starting adding multiple campaigns -->
 	 	<%= f.inputs 'Campaigns' do %>
-	 		<%= f.input :campaign_ids, label: "Select Campaigns", collection: [], as: :select, input_html: { class: "custom-select-campaign",  data: { url: campaigns_url } }, multiple: true %>
+	 		<%= f.input :campaign_ids, label: "Select Campaigns", collection: contact.campaigns, as: :select, input_html: { class: "custom-select-campaign",  data: { url: campaigns_url } }, multiple: true %>
 	 		<%= f.inputs 'Or Create New Campaign' do %>
 	 			<%= f.semantic_fields_for :campaigns, contact.campaigns.presence || contact.campaigns.new do |campaign| %>
 	 				<%= render 'shared/campaign_fields', f: campaign %>
@@ -23,7 +23,7 @@
 
 	 	<!-- Starting adding multiple transactions -->
 	 	<%= f.inputs 'Transactions' do %>
-	 		<%= f.input :contact_transaction_ids, label: "Select Transactions", collection: [], as: :select, input_html: { class: "custom-select-transaction" }, multiple: true %>
+	 		<%= f.input :contact_transaction_ids, label: "Select Transactions", collection: contact.contact_transactions.pluck(:description, :id), as: :select, input_html: { class: "custom-select-transaction" }, multiple: true %>
 
 	 		<%= f.inputs 'Or Create New Transaction' do %>
 	 			<%= f.semantic_fields_for :contact_transactions, contact.contact_transactions.presence || contact.contact_transactions.new do |transaction| %>
