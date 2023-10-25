@@ -3,8 +3,8 @@
 class Campaign < ApplicationRecord
   validates :name, :budget, :description, presence: true
 
-  has_and_belongs_to_many :contacts
-  has_and_belongs_to_many :campaign_transactions, class_name: 'Transaction'
+  has_and_belongs_to_many :contacts, uniq: true
+  has_and_belongs_to_many :campaign_transactions, class_name: 'Transaction', uniq: true
 
   accepts_nested_attributes_for :campaign_transactions, reject_if: :all_blank, allow_destroy: true
   accepts_nested_attributes_for :contacts, reject_if: :all_blank, allow_destroy: true

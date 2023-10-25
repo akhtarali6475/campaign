@@ -1,6 +1,6 @@
 <div class="form-container">
 
-	<%= semantic_form_for campaign, method: :put, html: { autocomplete: 'off', class: 'form-horizontal'}, remote: true do |f| %>
+	<%= semantic_form_for campaign, html: { autocomplete: 'off', class: 'form-horizontal'}, remote: true do |f| %>
 
 	 	<%= f.input :name, label: true, input_html: { class: 'form-control' } %>
 	 	<%= f.input :budget, label: true, input_html: { class: 'form-control' } %>
